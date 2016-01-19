@@ -18,12 +18,6 @@
 
     <script src="//cdnjs.cloudflare.com/ajax/libs/jquery/1.9.1/jquery.min.js"></script>
     <script type="text/javascript" src="//cdnjs.cloudflare.com/ajax/libs/jquery.sticky/1.0.3/jquery.sticky.min.js"></script>
-    <script>
-      hljs.initHighlightingOnLoad();
-      $(window).load(function(){
-      $("#menu").sticky({ topSpacing: 0 });
-      });
-    </script>
   </head>
   <body>
     <div class="container-fluid banner text-center" id="banner">
@@ -33,7 +27,7 @@
             <div class="banner-text" id="bannertext">
               <h1 class="hostyle" id="heads">µnit</h1>
               <p class="pstyle">Unit testing framework for C.</p>
-              <a href="#features" class="page-scroll arrow"><i class="fa fa-angle-down"></i></a>
+              <a href="#about" class="page-scroll arrow"><i class="fa fa-angle-down"></i></a>
             </div>
           </div>
         </div>
@@ -50,12 +44,12 @@
         <div>
     	  <nav class="collapse navbar-collapse" id="myNavbar" role="navigation">
             <ul class="nav navbar-nav navbar-right navstyle">
-	      <li><a href="#banner" class="page-scroll active">Home</a></li>
-              <li><a href="#about" class="page-scroll">About</a></li>
+	      <!-- <li><a href="#" class="page-scroll active">Home</a></li> -->
+              <li><a href="#about" class="page-scroll active">About</a></li>
               <li><a href="#download" class="page-scroll">Download</a></li>
               <li><a href="#documentation" class="page-scroll">Documentation</a></li>
               <li><a href="#support" class="page-scroll">Support</a></li>
-              <!-- <li><a href="https://github.com/nemequ/munit/"><i class="fa fa-lg fa-github"></i> GitHub</a></li> -->
+              <li><a href="https://github.com/nemequ/munit/"><i class="fa fa-lg fa-github"></i> GitHub</a></li>
             </ul>
           </nav>
         </div>
@@ -1350,7 +1344,8 @@ $(function(){
   })
 });
 
-$(document).ready(function () {
+$(window).load(function () {
+  $("#menu").sticky({ topSpacing: 0 });
   $(document).on("scroll", onScroll);
   $('a[href^="#"]').on('click', function (e) {
     e.preventDefault();
@@ -1358,12 +1353,13 @@ $(document).ready(function () {
 
     $('a').each(function () { $(this).removeClass('active'); });
     $(this).addClass('active');
-    var target = this.hash;
+    var origTarget = this.hash;
+    var target = origTarget == "" ? "#banner" : this.hash;
     $target = $(target);
     $('html, body').stop().animate({
         'scrollTop': $target.offset().top
       }, 500, 'swing', function () {
-        window.location.hash = target;
+        window.location.hash = origTarget;
         $(document).on("scroll", onScroll);
       });
   });
@@ -1373,6 +1369,9 @@ function onScroll(event){
   var scrollPosition = $(document).scrollTop();
   $('.nav li a').each(function () {
     var currentLink = $(this);
+    var currentHref = currentLink.attr("href");
+    if (currentHref.charAt(0) != "#")
+      return;
     var refElement = $(currentLink.attr("href"));
     if (refElement.position().top <= scrollPosition && refElement.position().top + refElement.height() > scrollPosition) {
       $('.nav li a').removeClass("active");
@@ -1382,6 +1381,8 @@ function onScroll(event){
     }
   });
 }
+
+hljs.initHighlightingOnLoad();
 
 (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
 (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
