@@ -275,6 +275,10 @@ pre.terminal .terminal-green {
     padding: 3em 0;
 }
 
+#support h2 {
+    text-align: right;
+}
+
 #support div.row > :first-child {
     border-bottom: 5px #CB5750 solid;
     border-right: 5px #CB5750 solid;
