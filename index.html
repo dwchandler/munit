@@ -44,7 +44,6 @@
         <div>
     	  <nav class="collapse navbar-collapse" id="myNavbar" role="navigation">
             <ul class="nav nav-tabs navbar-nav navbar-right" role="tablist">
-	      <!-- <li><a href="#" class="page-scroll active">Home</a></li> -->
               <li><a href="#about">About</a></li>
               <li><a href="#download">Download</a></li>
               <li><a href="#documentation">Documentation</a></li>
@@ -70,20 +69,58 @@
 	  wrapped in a nice API.
 	</p>
 
-	<p>
-	  Features include:
-	</p>
+	<dl class="dl-features">
+	  <dt>Trivial to integrate</dt>
+	  <dd>
+	    With a single source file and a single header, integrating
+	    µnit into your build system is trivial.  No special
+	    arguments or feature-detection required.
+	  </dd>
 
-	<ul class="indent">
-	  <li>Lots of handy assertion macros.</li>
-	  <li>Reproducible cross-platform random number generation.</li>
-	  <li>Timing information, including both wall-clock and CPU time.</li>
-	  <li>Parameterized tests.</li>
-	  <li>Nested test suites.</li>
-	  <li>Powerful CLI.</li>
-	  <li>Hiding noisy output of successful tests.</li>
-	  <li>Permissive (MIT) license.</li>
-	</ul>
+	  <dt>Reproducible cross-platform pseudo-random number generation</dt>
+	  <dd>
+	    Increase test coverage without making tests take forever,
+	    or sacrificing reproducibility.
+	  </dd>
+
+	  <dt>Parameterized tests</dt>
+	  <dd>
+	    Write once, run an exponential number of times (once each
+	    for every possible combinantion of parameter values).
+	  </dd>
+
+	  <dt>Timing information, including both wall-clock and CPU time</dt>
+	  <dd>
+	    Let your unit tests double as a performance indicator and
+	    help track performance regressions.
+	  </dd>
+
+	  <dt>Hide <em>stderr</em>, unless a test fails.</dt>
+	  <dd>
+	    Leave your debugging messages in place; if your test
+	    passes they will be hidden, but if it fails you'll have
+	    valuable debugging information.
+	  </dd>
+
+	  <dt>Nested suites</dt>
+	  <dd>
+	    Organize your tests into suites, then your suites into
+	    suites of suites, then your suites of suites into suites
+	    of suites of suites…
+	  </dd>
+
+	  <dt>Powerful CLI</dt>
+	  <dd>
+	    A powerful CLI lets you bend your tests to your will
+	    without having to change the code.
+	  </dd>
+
+	  <dt>Lots of handy assertion macros.</dt>
+	  <dd>
+	    All the assertion macros you would expect from any modern
+	    unit testing framework for C…  plus a few others.
+	  </dd>
+	</dl>
       </div>
     </section>
 
