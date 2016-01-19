@@ -43,12 +43,12 @@
         </div>
         <div>
     	  <nav class="collapse navbar-collapse" id="myNavbar" role="navigation">
-            <ul class="nav navbar-nav navbar-right navstyle">
+            <ul class="nav nav-tabs navbar-nav navbar-right" role="tablist">
 	      <!-- <li><a href="#" class="page-scroll active">Home</a></li> -->
-              <li><a href="#about" class="page-scroll active">About</a></li>
-              <li><a href="#download" class="page-scroll">Download</a></li>
-              <li><a href="#documentation" class="page-scroll">Documentation</a></li>
-              <li><a href="#support" class="page-scroll">Support</a></li>
+              <li><a href="#about">About</a></li>
+              <li><a href="#download">Download</a></li>
+              <li><a href="#documentation">Documentation</a></li>
+              <li><a href="#support">Support</a></li>
               <li><a href="https://github.com/nemequ/munit/"><i class="fa fa-lg fa-github"></i> GitHub</a></li>
             </ul>
           </nav>
@@ -395,11 +395,28 @@ void main(void) {
 	      <p>Another way of writing <code>munit_assert_cmp_ptr(ptr, ==, NULL)</code></p>
 	    </dd>
 
-	    <dt><code>munit_assert_non_null(cosnt void* ptr)</code></dt>
+	    <dt><code>munit_assert_non_null(const void* ptr)</code></dt>
 	    <dd>
 	      <p>Another way of writing <code>munit_assert_cmp_ptr(ptr, !=, b)</code></p>
 	    </dd>
+
+	    <dt><code>munit_assert_true(bool value)</code></dt>
+	    <dd>
+	      <p>Check that the boolean value is true.</p>
+	    </dd>
+
+	    <dt><code>munit_assert_false(bool value)</code></dt>
+	    <dd>
+	      <p>Check that the boolean value is false.</p>
+	    </dd>
 	  </dl>
+
+	  <p>
+	    Additionally, µnit contains a <code>munit_assert()</code>
+	    macro, which is similar to <code>assert</code> but uses
+	    µnit's logging facilities, for those cases where more
+	    specialized macros will not work.
+	  </p>
 	</div>
       </section>
 
@@ -411,7 +428,7 @@ void main(void) {
 	    One feature that is often overlooked in testing frameworks
 	    is pseudo-random number generation.  Being able to
 	    randomize tests a bit is a great way to increase the
-	    coverage of your tests, without the performance
+	    coverage of your tests without the performance
 	    implications of testing every possible value.
 	  </p>
 
@@ -424,15 +441,15 @@ void main(void) {
 	    this is where seeding comes in!  Every time the test suite
 	    is run, a 32-bit seed value is written to the console in
 	    hexidecimal notation.  If you see a failure you can simply
-	    plug that number back into the test runner and the PRNG
-	    will output the same values as it did in the failing
-	    tests.
+	    <a href="#--seed">plug that number back into the test
+	    runner</a> and the PRNG will output the same values as it
+	    did in the failing tests.
 	  </p>
 
 	  <p>
 	    So, why not just use C's <code>rand</code>
 	    and <code>srand</code> functions?  The PRNG functions
-	    built into C are platform-specific; even if you use the
+	    built into C are platform-specific.  Even if you use the
 	    same seed, if your test machine is different from your
 	    development machine (e.g., if you're using a CI service)
 	    it's likely you will be unable to reproduce the same
@@ -1341,10 +1358,12 @@ $(function(){
 
 $(window).load(function () {
   $("#menu").sticky({ topSpacing: 0 });
-  $(document).on("scroll", onScroll);
+  $("body").scrollspy({
+    target: "#myNavbar",
+    offset: $("#menu").height()
+  })
   $('a[href^="#"]').on('click', function (e) {
     e.preventDefault();
-    $(document).off("scroll");
 
     $('a').each(function () { $(this).removeClass('active'); });
     $(this).addClass('active');
@@ -1352,30 +1371,14 @@ $(window).load(function () {
     var target = origTarget == "" ? "#banner" : this.hash;
     $target = $(target);
     $('html, body').stop().animate({
-        'scrollTop': $target.offset().top
+        'scrollTop': ($target.offset().top - $("#menu").height()) + 1
       }, 500, 'swing', function () {
+        var scrollmem = $('html,body').scrollTop();
         window.location.hash = origTarget;
-        $(document).on("scroll", onScroll);
+        $('html,body').scrollTop(scrollmem);
       });
   });
 });
-
-function onScroll(event){
-  var scrollPosition = $(document).scrollTop();
-  $('.nav li a').each(function () {
-    var currentLink = $(this);
-    var currentHref = currentLink.attr("href");
-    if (currentHref.charAt(0) != "#")
-      return;
-    var refElement = $(currentLink.attr("href"));
-    if (refElement.position().top <= scrollPosition && refElement.position().top + refElement.height() > scrollPosition) {
-      $('.nav li a').removeClass("active");
-      currentLink.addClass("active");
-    } else {
-      currentLink.removeClass("active");
-    }
-  });
-}
 
 hljs.initHighlightingOnLoad();
 

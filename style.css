@@ -154,7 +154,7 @@
     font-size: 34px;
 }
 
-.navstyle li a
+.nav-tabs li a
 {
     padding: 24px 15px;
     color: #fff;
@@ -163,7 +163,13 @@
     text-transform: uppercase;
     letter-spacing: 1px;
 }
-.navstyle li a:hover, .navstyle li a:focus, .navstyle li a.active {
+
+.nav-tabs > li.active > a:focus,
+.nav-tabs > li.active > a:hover,
+.nav-tabs > li.active > a,
+.nav-tabs > li > a:focus,
+.nav-tabs > li > a:hover,
+.nav-tabs > li.active > a {
     background-color: #33a29d;
     color: #fff;
 }
@@ -177,11 +183,15 @@
 /-----------------Custom--------------------/
 /------------------------------------------*/
 
+body {
+    position: relative;
+}
+
 body > section {
     /* padding: 7em 0 7em; */
     color: #242424;
     font-size: 110%;
-    padding-top: 6em;
+    padding: 2em 0;
 }
 
 a.anchor {
