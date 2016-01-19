@@ -976,6 +976,42 @@ static MunitParameterEnum test_params[] = {
 
 	  <pre class="terminal">./test-runner --seed 0x4f78f287</pre>
 
+	  <h4 id="--iterations">--iterations N</h4>
+
+	  <p>
+	    The <var>iterations</var> option allows you to run each
+	    test a N times (unless the test includes
+	    the <code>MUNIT_TEST_OPTION_SINGLE_ITERATION</code> flag).
+	    For tests run multiple times, both the average and
+	    cumulative timing information will be included.  For
+	    example:
+	  </p>
+
+	  <pre class="terminal">Running test suite with seed 0xa9ae01fb...
+/example/compare                     [  <span class="terminal-green">OK</span>    ] [ 0.00000153 / 0.00000154 CPU ]
+                                         Total: [ 0.02645989 / 0.02659637 CPU ]
+/example/rand                        [  <span class="terminal-green">OK</span>    ] [ 0.00000363 / 0.00000367 CPU ]
+/example/parameters
+  foo=one, bar=four                  [  <span class="terminal-green">OK</span>    ] [ 0.00000123 / 0.00000125 CPU ]
+                                         Total: [ 0.02123751 / 0.02157195 CPU ]
+  foo=one, bar=five                  [  <span class="terminal-green">OK</span>    ] [ 0.00000114 / 0.00000114 CPU ]
+                                         Total: [ 0.01970051 / 0.01974722 CPU ]
+  foo=one, bar=six                   [  <span class="terminal-green">OK</span>    ] [ 0.00000110 / 0.00000111 CPU ]
+                                         Total: [ 0.01906747 / 0.01916830 CPU ]
+  foo=two, bar=four                  [  <span class="terminal-green">OK</span>    ] [ 0.00000111 / 0.00000112 CPU ]
+                                         Total: [ 0.01919546 / 0.01933590 CPU ]
+  foo=two, bar=five                  [  <span class="terminal-green">OK</span>    ] [ 0.00000111 / 0.00000112 CPU ]
+                                         Total: [ 0.01927790 / 0.01937041 CPU ]
+  foo=two, bar=six                   [  <span class="terminal-green">OK</span>    ] [ 0.00000113 / 0.00000112 CPU ]
+                                         Total: [ 0.01951630 / 0.01938922 CPU ]
+  foo=three, bar=four                [  <span class="terminal-green">OK</span>    ] [ 0.00000113 / 0.00000113 CPU ]
+                                         Total: [ 0.01957777 / 0.01959911 CPU ]
+  foo=three, bar=five                [  <span class="terminal-green">OK</span>    ] [ 0.00000114 / 0.00000113 CPU ]
+                                         Total: [ 0.01969819 / 0.01954282 CPU ]
+  foo=three, bar=six                 [  <span class="terminal-green">OK</span>    ] [ 0.00000114 / 0.00000113 CPU ]
+                                         Total: [ 0.01968101 / 0.01953382 CPU ]
+11 of 11 (100%) tests successful, 0 (0%) test skipped.</pre>
+
 	  <h4 id="--param">--param name value</h4>
 
 	  <p>
@@ -1058,6 +1094,13 @@ static MunitParameterEnum test_params[] = {
 	    By default, µnit will fork before executing a test, then
 	    run the test in the child process.  This provides numerous
 	    benefits:
+	  </p>
+
+	  <h4 id="--fatal-failures">--fatal-failures</h4>
+
+	  <p>
+	    Exit the test suite immediately if any tests fail instead
+	    of trying to also check the remaining suites.
 	  </p>
 
 	  <ul class="indent">
